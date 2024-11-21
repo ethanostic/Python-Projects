@@ -1,0 +1,59 @@
+# imports
+import random
+
+# instructions
+print("\nWelcome to 'Guess the Number'!")
+print("Guess the random number between 1 and 100.")
+print("Do this by entering a number.")
+print("You will be told whether this number is greater than or less than the random number.")
+print("By narrowing the possible numbers, you will find the correct number.")
+
+# Initialize high score
+high_score = None
+
+# Main while loop
+while True:
+
+    # Creates random number
+    rn = random.randint(1, 100)
+
+    # initializes guesses
+    guesses = 0
+
+    # Input loop
+    while True:
+        print()
+        # handles errors
+        try:
+            user = input(": ")
+            user = int(user)
+            guesses += 1
+
+            # >
+            if rn > user:
+                print(f"Number is greater than {user}.")
+
+            # <
+            elif rn < user:
+                print(f"Number is less than {user}.")
+
+            # = 
+            else:
+                # prints that you won and the number of guesses
+                print(f"Congratulations! You found the number! The random number was {rn}.\n")
+                print(f"You found the number in {guesses} guesses.")
+                
+                # Update high score if this is the best round
+                if high_score is None or guesses < high_score:
+                    high_score = guesses
+                    print(f"New high score: {high_score} guesses!\n")
+
+                # prints high score if there is no change
+                else:
+                    print(f"High score: {high_score} guesses.\n")
+
+                break
+
+        # when invalid input
+        except ValueError:
+            print("Please enter a valid number.")
