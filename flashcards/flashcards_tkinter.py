@@ -109,19 +109,12 @@ def get_A(event=None):
     root.bind("<Return>", get_B)
 
 # Displays the B or definition of the current flashcard
-# FIX - Inconsistency using both the terminal and Tkinter window
 def get_B(event=None):
     global flashcard_setnumber, B_flashcard, flashcardwidget
-    user_answer = input("What is the definition of " + A_flashcard + "?: ")
-    flashcardwidget.destroy()
-    if user_answer.strip().lower() == B_flashcard:
-        flashcardwidget = tk.Label(root, text="Correct!")
-    else:
-        flashcardwidget = tk.Label(root, text=f"Incorrect. The correct answer is {B_flashcard}.")
+    flashcardwidget = tk.Label(root, text=B_flashcard.title())
     flashcardwidget.grid(row=1, column=0, columnspan=3, padx=5, pady=1)
-
-    flashcard_setnumber += 1
     root.unbind("<Return>")
+    flashcard_setnumber += 1
     if flashcard_setnumber == len(randomized_flashcards):
         root.bind("<Return>", quiz_finished)
     else:
