@@ -23,9 +23,9 @@ def load_flashcards():
 
 load_flashcards()
 
+# Set pre-defined variables
 confirmation = None
 flashcardwidget = None
-flashcard_setnumber = 0
 randomized_flashcards = []
 
 #region 1st Tab (Adding Flashcards)
@@ -84,7 +84,7 @@ def quiztab():
     random.shuffle(items)
     randomized_flashcards = dict(items)
 
-    # Start the quiz with the first card
+    # Sets the button for going back to the add_flashcards_tab
     flashcard_setnumber = 0
     for widget in root.winfo_children():
         widget.destroy()
@@ -93,17 +93,23 @@ def quiztab():
     
     get_A()
 
+# Displays the A or term of the current flashcard
 def get_A(event=None):
     global A_flashcard, flashcardwidget, B_flashcard
     if flashcardwidget:
         flashcardwidget.destroy()
+    
+    # Get the index for the current flashcard
     current_flashcard_set = list(randomized_flashcards.items())[flashcard_setnumber]
     A_flashcard, B_flashcard = current_flashcard_set
-    flashcardwidget = tk.Label(root, text=A_flashcard.title())  # Show the term
+    
+    flashcardwidget = tk.Label(root, text=A_flashcard.title())
     flashcardwidget.grid(row=1, column=0, columnspan=3, padx=5, pady=1)
     root.unbind("<Return>")
     root.bind("<Return>", get_B)
 
+# Displays the B or definition of the current flashcard
+# FIX - Inconsistency using both the terminal and Tkinter window
 def get_B(event=None):
     global flashcard_setnumber, B_flashcard, flashcardwidget
     user_answer = input("What is the definition of " + A_flashcard + "?: ")
@@ -120,13 +126,15 @@ def get_B(event=None):
         root.bind("<Return>", quiz_finished)
     else:
         root.bind("<Return>", get_A)
+        
+# FIX Needs a def for editing a flashcard - this could also be added to the add_flashcard_tab
+# FIX Needs a def for deleting a file - this could also be added to the add_flashcard_tab
 
 def quiz_finished(event=None):
     global flashcardwidget, flashcard_setnumber
     flashcardwidget.destroy()
     flashcardwidget = tk.Label(root, text="QUIZ COMPLETE")
     flashcardwidget.grid(row=1, column=0, columnspan=3, padx=5, pady=1)
-    flashcard_setnumber = 0
     root.unbind("<Return>")
 
 #endregion
