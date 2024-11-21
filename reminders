@@ -1,0 +1,52 @@
+#region Startup
+
+# tkinter startup
+import tkinter as tk
+root = tk.Tk()
+root.title("Reminders")
+root.geometry("500x400")
+
+# import reminders
+# FIX needs json storage file
+from reminders_storage import storage as remin
+
+#endregion
+
+#region Functions
+
+# Create a button widget for each reminder
+def display():
+    global plusb, entertext
+    for widget in root.winfo_children():
+        widget.destroy()
+    for index, eremin in enumerate(remin):
+        button = tk.Button(root, text=eremin.title(), width=20, height=2, command=lambda eremin=eremin: delr(eremin))
+        button.pack()
+    plusb = tk.Button(text="+", width=20, height=2, command=addr)
+    plusb.pack()
+    entertext = tk.Text(root, height=1, width=29)
+    entertext.pack()
+
+# saves reminders
+def save():
+    file_path = "reminders_storage.py"
+    with open(file_path, "w") as file:
+        file.write(f"storage = {remin}\n")
+
+def delr(eremin):
+    if eremin in remin:
+        remin.remove(eremin)
+        save()
+        display()
+
+def addr():
+    new_reminder_text = entertext.get("1.0", tk.END).strip()  # Strips any extra newlines
+    if new_reminder_text:  # Only add if text is not empty
+        remin.append(new_reminder_text.lower())
+        save()
+        display()
+
+#endregion
+
+display()
+root.mainloop()
