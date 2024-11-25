@@ -32,6 +32,17 @@ for number in x_list:
 
 #region Set standard maze walls
 
+# Set unknowns
+for x_key, y_dict in maze_dict.items():
+    for y_key in y_dict:
+        if x_key % 2 != 0:
+            if y_key % 2 == 0:
+                maze_dict[x_key][y_key] = "unknown"
+    for y_key in y_dict:
+        if x_key % 2 == 0:
+            if y_key % 2 != 0:
+                maze_dict[x_key][y_key] = "unknown"
+
 # Sets borders
 for x_key, y_dict in maze_dict.items():
     for y_key in y_dict:
@@ -52,3 +63,9 @@ for x_key, y_dict in maze_dict.items():
 # fill in maze
 
 print(json.dumps(maze_dict, indent=4))
+
+current_cell_x = 2
+current_cell_y = 2
+
+# information from up, down, left, and right based on current cell
+
