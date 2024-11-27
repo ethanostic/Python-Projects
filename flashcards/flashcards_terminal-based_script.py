@@ -1,14 +1,24 @@
+# Imports and pre-defined variables
 import random
-
-# Get the directory of the current script
+import json
 from pathlib import Path
-script_directory = Path(__file__).parent
-storage_file = script_directory / 'flashcards_terminal-based_storage.py'
-
-# FIX must be a json file
-from flashcards_terminal-based_storage import flashcards
-
 forgotten = {}
+
+# Define path for storing flashcards as a JSON file
+script_directory = Path(__file__).parent
+storage_file = script_directory / 'flashcards_terminal-based_storage.json'
+
+# Load existing flashcards from the storage file (if any)
+def load_flashcards():
+    global flashcards
+    if storage_file.exists():
+        with open(storage_file, 'r') as f:
+            flashcards = json.load(f)
+    else:
+        flashcards = {}
+
+load_flashcards()
+help()
 
 def add_flashcard():
     A = input("   A: ")
@@ -35,7 +45,7 @@ def display():
         print(f"{A.title()} - {B.title()}")
 
 def is_it():
-    word = user_inputinput[: -1]
+    word = user_input[: -1]
     word = word.lower()
     if word in flashcards:
         print(f"  {flashcards[word].title()}")
@@ -71,8 +81,8 @@ def help():
 
 # FIX must be a json file.
 def save():
-    with open(storage_file, 'w') as file:
-        file.write(f"flashcards = {repr(flashcards)}\n")
+   with open("flashcards_terminal-based_storage.json", "w") as file:
+        json.dump(flashcards, file, indent=4)
 
 while True:
     user_input = input("\n: ")
