@@ -79,11 +79,11 @@ def help():
     print("To quiz yourself, enter 'q.'")
     print("To exit, enter 'exit.'")
 
-# FIX must be a json file.
+# save flashcards to JSON
 def save():
-   with open("flashcards_terminal-based_storage.json", "w") as file:
+    with open(storage_file, "w") as file:
         json.dump(flashcards, file, indent=4)
-
+        
 while True:
     user_input = input("\n: ")
     if user_input == "exit":
