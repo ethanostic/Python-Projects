@@ -30,7 +30,7 @@ running = True
 
 # Creates a 31x31 grid
 #grid = create_grid()
-game = Game(31)
+game = Game(GRID_SIZE)
 game.start()
 
 # snake main loop
