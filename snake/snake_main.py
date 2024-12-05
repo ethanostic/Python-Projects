@@ -9,3 +9,17 @@
 # Bind arrow keys or WASD to change the direction of the snake.
 # Randomly generate the food source after the food source has been eaten.
     # generate the food source not in the snake body.
+
+from create_grid import create_grid
+
+# Creates a 31x31 grid
+grid = create_grid()
+
+# Sets snake spawn point to the middle facing left
+grid[16][16] = "left"
+
+# snake main loop
+
+
+
+
