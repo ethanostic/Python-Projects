@@ -1,10 +1,12 @@
 from random import randrange
-from snake.Snake import Snake
+from Snake import Snake
 from Apple import Apple
+#import pygame
 
 class Game:
     #the constructor
     def __init__(self, grid_size):
+        #for drawing the grid
         self.grid = [[0]* grid_size for i in range(grid_size)]
      
     #responsible for creating a snake
@@ -25,29 +27,30 @@ class Game:
 
     #updates the snake, and the apple, this should likely update the direction for the snake
     def update(self):
-        #maybe update needs a direction argument?
-        self.snake.update()
         if self.snake.intersects(self.apple.position):
             self.add_new_apple()
-            # and somehow increase snake length
+            self.snake.grow()
+        else:
+            #maybe update needs a direction argument, cause it does the move?
+            self.snake.update()
     
-    #this could draw the empty grid
-    def draw_background(self):
-        print("I am drawing the background")
-
-    #takes a list of positions
-    def draw_snake(self, segments):
-        print("i am drawing a snake")
+    #this has access to exactly what to draw and where
+    def draw(self, screen):
+        for row_idx, row in enumerate(self.grid):
+            for col_idx,col in enumerate(row):
+                if [row_idx, col_idx] in self.snake.segments:
+                    print('#',end="")
+                elif [row_idx, col_idx] == self.apple.position:
+                    print('O',end="")
+                else:
+                    print(' ',end="")
+            print("")
     
     #takes one position
     def draw_apple(self, position):
         print("I am drawing apple")
 
-    def draw(self, screen):
-        #draws grid
-        self.draw_background()
-        #draws snake overtop as green cell
-        self.draw_snake(self.snake.segments)
-        #draws apple as red cell
-        self.draw_apple(self.apple.position)
+    #def draw(self, screen):
+    #    #draws grid
+    #    self.draw()
 
