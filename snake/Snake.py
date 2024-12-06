@@ -9,7 +9,7 @@ class Direction(Enum):
 class Snake:
     #requires a starting position because a snake needs to know the locations of it's segments
     
-    def __init__(self, initial_position):
+    def __init__(self, x, y):
         self.direction = Direction.UP
         self.segments = []
 

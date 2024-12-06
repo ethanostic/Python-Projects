@@ -1,12 +1,12 @@
 from random import randrange
-from Snake import Snake
+from snake.Snake import Snake
 from Apple import Apple
 
 class Game:
     #the constructor
     def __init__(self, grid_size):
         self.grid = [[0]* grid_size for i in range(grid_size)]
-    
+     
     #responsible for creating a snake
     def start(self):
         half_of_grid = len(self.grid)//2
@@ -15,10 +15,12 @@ class Game:
 
     #can be called to magically spawn an apple, should probably eat the old apple
     def add_new_apple(self):
-        self.apple_position = [randrange(len(self.grid)), randrange(len(self.grid))]
-        while self.snake.intersects(self.apple_position):
+        # spawns apple at random position
+        def spawn_apple():
             self.apple_position = [randrange(len(self.grid)), randrange(len(self.grid))]
-
+        spawn_apple()
+        while self.snake.intersects(self.apple_position):
+            spawn_apple()
         self.apple = Apple(self.apple_position)
 
     #updates the snake, and the apple, this should likely update the direction for the snake
@@ -27,6 +29,7 @@ class Game:
         self.snake.update()
         if self.snake.intersects(self.apple.position):
             self.add_new_apple()
+            # and somehow increase snake length
     
     #this could draw the empty grid
     def draw_background(self):

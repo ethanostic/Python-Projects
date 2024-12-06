@@ -1,6 +1,4 @@
-#I added some comments mixed in with yours as a response, I hope it's clear what i mean
-
-# This is general outline for the snake game. feel free to modify it or add to it with comments or real code. I'll get to it later tomorrow.
+# Whoa you did a lot! thanks!
 
 # Creates a grid that represents the area the snake can travel, we can have a "game" object that does this the moment it's created
     # snake cells are mark with a direction to show how the snake needs to move, Can this be done in a snake class, by giving a snake a direction property, like an enum? I created an example snake class to hopefully explain what i mean. 
@@ -8,13 +6,15 @@
 # Check the grid every set period of time (snake speed) to change snake position
     # if a cell that the snakes travels to is occupied by its body or a wall, then game over.
 # Connect this grid to pygame
-# Bind arrow keys or WASD to change the direction of the snake.
+# Lets go with the arrow keys because they are simpler to work with
+    # if we can get this game to work, I was thinking of making a local two player version. Basically the same concept, but two snakes, two apples, and a bigger grid.
 # Randomly generate the food source after the food source has been eaten.
     # generate the food source not in the snake body.
 
 #imports
 import pygame
 from Game import Game
+from movement import move_left, move_right, move_up, move_down
 
 #constants, because maybe it's a good idea to know how big we want our squares to be in pixels
 GRID_SIZE   = 31
@@ -32,6 +32,18 @@ running = True
 #grid = create_grid()
 game = Game(GRID_SIZE)
 game.start()
+
+# binds arrow keys to functions. I have no idea where this code fits in with the rest but we need it or at least its concept.
+def bind_keys():
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_LEFT:
+            move_left()
+        elif event.key == pygame.K_RIGHT:
+            move_right()
+        elif event.key == pygame.K_UP:
+            move_up()
+        elif event.key == pygame.K_DOWN:
+            move_down()
 
 # snake main loop
 while running:
