@@ -33,7 +33,7 @@ running = True
 game = Game(GRID_SIZE)
 game.start()
 
-# binds arrow keys to functions. I have no idea where this code fits in with the rest but we need it or at least its concept.
+# binds arrow keys to functions. I have no idea where this code fits in with the rest but we need it or at least its concept.<<< these are the "events" I was thinking of on line 50 ^ ^  
 def bind_keys():
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_LEFT:

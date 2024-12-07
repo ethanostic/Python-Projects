@@ -56,3 +56,4 @@ def drop_tail(eaten):
         for row in range(grid_size):
             for col in range(grid_size):
                 #if nothing is pointing toward the snake segment, then it is a tail and should be removed.
+                pass
