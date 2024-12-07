@@ -1,6 +1,6 @@
 # Need to define snake head coordinates
 snake_head = [5, 5] # temporary y and x
-apple_position = [5,6] # temporary
+apple_position = [5,6] # temporary until incorporated
 # default position is up
 direction = "up"
 from Game import GRID
