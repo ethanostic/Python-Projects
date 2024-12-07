@@ -1,59 +1,41 @@
-# functions called by arrow keys
-# this is a rough idea. Its not incorporated well with the rest of the code.
-
 # Need to define snake head coordinates
 snake_head = [5, 5] # temporary y and x
 apple_position = [5,6] # temporary
-
-def move_left():
-    eaten = False
-    # Head appears x - 1 based on previous head position
-    snake_head = [snake_head[0]][snake_head[1] - 1]
-    if snake_head == apple_position:
-        eaten = True
-    drop_tail(eaten)
-
-def move_right():
-    eaten = False
-    # x + 1
-    snake_head = [snake_head[0]][snake_head[1] + 1]
-    if snake_head == apple_position:
-        eaten = True
-    drop_tail(eaten)
-
-def move_up():
-    eaten = False
-    # y - 1
-    snake_head = [snake_head[0] - 1][snake_head[1]]
-    if snake_head == apple_position:
-        eaten = True
-    drop_tail(eaten)
-
-def move_down():
-    eaten = False
-    # y + 1
-    snake_head = [snake_head[0] + 1][snake_head[1]]
-    if snake_head == apple_position:
-        eaten = True
-    drop_tail(eaten)
+# default position is up
+direction = "up"
+from Game import GRID
 
 
-# this is assuming the grid starts in the top left corner
-# ex. x,y
+def update_snake_position(direction):
+    # Update snake head position
+    # snake_head not updating GRID, snake_head needs to be an x and y coordinate pair
+    # Does not set previous head to a direction.
+    if direction == "left":
+        snake_head = [snake_head[0]][snake_head[1] - 1]
+    elif direction == "right":
+        snake_head = [snake_head[0]][snake_head[1] + 1]
+    elif direction == "up":
+        snake_head = [snake_head[0] - 1][snake_head[1]]
+    elif direction == "down":
+        snake_head = [snake_head[0] + 1][snake_head[1]]
+    else:
+        print("Error: direction is not left, right, up, or down")
 
-# 1,1  2,1  3,1
-# 1,2  2,2  3,2
-# 1,3  2,3  3,3
+    # Removes tail
+    if snake_head != apple_position:
+        for row in range(len(GRID.grid)):
+            for col in range(len(GRID.grid[row])):
+                if GRID.grid[row][col] == "left":
+                    GRID.grid[row][col - 1] = None
+                if GRID.grid[row][col] == "right":
+                    GRID.grid[row][col + 1] = None
+                if GRID.grid[row][col] == "up":
+                    GRID.grid[row - 1][col] = None
+                if GRID.grid[row][col] == "down":
+                    GRID.grid[row + 1][col] = None
+                
 
-# drops snake tale unless the head has com upon an apple
 
-# Assume that segments are noted in the main grid
 
-from Game import Game
 
-def drop_tail(eaten):
-    if eaten == False:
-        for row in range(grid_size):
-            for col in range(grid_size):
-                #if nothing is pointing toward the snake segment, then it is a tail and should be removed.
-                pass
+

@@ -3,7 +3,7 @@
 # Creates a grid that represents the area the snake can travel, we can have a "game" object that does this the moment it's created
     # snake cells are mark with a direction to show how the snake needs to move, Can this be done in a snake class, by giving a snake a direction property, like an enum? I created an example snake class to hopefully explain what i mean. 
     # a snake cell that is not pointing toward anything is the tail end of the snake and therefore should be removed in the next frame
-# Check the grid every set period of time (snake speed) to change snake position
+# Check the grid every set period of time (snake speed) to update snake position
     # if a cell that the snakes travels to is occupied by its body or a wall, then game over.
 # Connect this grid to pygame
 # Lets go with the arrow keys because they are simpler to work with
@@ -14,7 +14,7 @@
 #imports
 import pygame
 from Game import Game
-from movement import move_left, move_right, move_up, move_down
+from movement import update_snake_position
 
 #constants, because maybe it's a good idea to know how big we want our squares to be in pixels
 GRID_SIZE   = 31
@@ -37,13 +37,13 @@ game.start()
 def bind_keys():
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_LEFT:
-            move_left()
+            update_snake_position("left")
         elif event.key == pygame.K_RIGHT:
-            move_right()
+            update_snake_position("right")
         elif event.key == pygame.K_UP:
-            move_up()
+            update_snake_position("up")
         elif event.key == pygame.K_DOWN:
-            move_down()
+            update_snake_position("down")
 
 # snake main loop
 while running:

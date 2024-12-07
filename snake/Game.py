@@ -7,8 +7,8 @@ class Game:
     #the constructor
     def __init__(self, grid_size):
         #for drawing the grid
-        self.grid = [[0]* grid_size for i in range(grid_size)]
-     
+        self.grid = [[None]* grid_size for i in range(grid_size)]
+        
     #responsible for creating a snake
     def start(self):
         half_of_grid = len(self.grid)//2
@@ -37,7 +37,7 @@ class Game:
     #this has access to exactly what to draw and where
     def draw(self, screen):
         for row_idx, row in enumerate(self.grid):
-            for col_idx,col in enumerate(row):
+            for col_idx, col in enumerate(row):
                 if [row_idx, col_idx] in self.snake.segments:
                     print('#',end="")
                 elif [row_idx, col_idx] == self.apple.position:
@@ -49,6 +49,9 @@ class Game:
     #takes one position
     def draw_apple(self, position):
         print("I am drawing apple")
+
+# Creates the grid as one instance
+GRID = Game(3)
 
     #def draw(self, screen):
     #    #draws grid
