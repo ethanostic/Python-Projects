@@ -14,8 +14,8 @@ def time(user_money):
         company1["funds"] -= 100
         company1["level"] += 1
         company1["sales_income"] += 100
-        user_money += company1["sales_income"] * 0.1
-        company1["costs"] = (company1["costs"] * 0.9) + (company1["sales_income"] * 0.1)
+        user_money += company1["sales_income"] * 0.01 * user_stock
+        company1["costs"] = (company1["costs"] * 0.9) + (company1["sales_income"] * 0.01 * user_stock)
         print(company1)
         print(user_money)
 
