@@ -1,3 +1,13 @@
+'''
+A terminal-based simple flashcard app. 
+Functions include adding and removing flashcards, 
+displaying and quizing flashcards, and checking whether a flashcard exists. 
+Type 'help' for a list of commands. 
+Type '-' after the definition of a flashcard, if not known, 
+and that card will circle through the quiz again. 
+Flashcards are saved to a JSON file.
+'''
+
 # Imports and pre-defined variables
 import random
 import json
@@ -17,9 +27,7 @@ def load_flashcards():
     else:
         flashcards = {}
 
-load_flashcards()
-help()
-
+# Add flashcard to flashcards if not already in flashcards
 def add_flashcard():
     A = input("   A: ")
     A = A.lower()
@@ -31,6 +39,7 @@ def add_flashcard():
         flashcards[A] = B
         save()
 
+# Remove flashcard from flashcard if in flashcards
 def remove_flashcard():
     deleted_flashcard = input("   Removed flashcard (A): ")
     deleted_flashcard = deleted_flashcard.lower()
@@ -40,10 +49,13 @@ def remove_flashcard():
     else:
         print("Flashcard not in list.")
 
+# Display all flashcards in order they were created
 def display():
     for A, B in flashcards.items():
         print(f"{A.title()} - {B.title()}")
 
+# If the user input ends with '?', 
+# then displays definition if the word is in flashcards.
 def is_it():
     word = user_input[: -1]
     word = word.lower()
@@ -52,6 +64,8 @@ def is_it():
     else:
         print(f"{word.title()} is not a flashcard.")
 
+# Quiz the user. If a word is not known, user inputs'-'. 
+# This copies that flashcard to forgotten to be repeated again in the quiz.
 def quiz():
     items = list(flashcards.items())
     random.shuffle(items)
@@ -71,36 +85,50 @@ def quiz():
                 del forgotten[A]
     print("\nQuiz completed.")
 
+# Displays a list of commands
 def help():
     print("\nTo add flashcard, enter '+.'")
     print("To remove flashcard, enter '-.'")
     print("To display flashcards, enter 'd.'")
     print("To see if a word is already a flashcard, enter the name of the word plus '?.'")
     print("To quiz yourself, enter 'q.'")
+    print("To mark flashcard as forgotten, enter '-' after definition.")
     print("To exit, enter 'exit.'")
 
 # save flashcards to JSON
 def save():
     with open(storage_file, "w") as file:
         json.dump(flashcards, file, indent=4)
-        
+
+# Import flashcards from JSON and display commands from help
+load_flashcards()
+help()
+
+# Main while loop    
 while True:
     user_input = input("\n: ")
     if user_input == "exit":
         save()
         break
+    
     elif user_input == "+":
         add_flashcard()
+
     elif user_input == "-":
         remove_flashcard()
+
     elif user_input == "d":
         display()
+
     elif user_input == "q":
         quiz()
+
     elif user_input == "help":
         help()
+
     elif user_input.endswith("?"):
         is_it()
+
     else:
         print("\nUnrecognized command.")
         help()
